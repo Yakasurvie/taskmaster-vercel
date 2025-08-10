@@ -12,6 +12,11 @@ export const HomePage: React.FC = () => {
     setTimeout(() => setShowHello(false), 3000)
   }
 
+  // Détection automatique environnement
+  const isProduction = window.location.hostname !== 'localhost'
+  const environment = isProduction ? 'Production Vercel' : 'Mac Air M2 Local'
+  const port = isProduction ? 'Global CDN' : 'localhost:5173'
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
@@ -23,7 +28,7 @@ export const HomePage: React.FC = () => {
             {APP_CONFIG.description}
           </p>
           <div className="text-sm text-gray-500">
-            {APP_CONFIG.version} - {APP_CONFIG.environment}
+            {APP_CONFIG.version} - {environment}
           </div>
         </div>
 
@@ -33,7 +38,7 @@ export const HomePage: React.FC = () => {
             size="lg"
             className="mb-4"
           >
-            Hello World Mac ! 🍎
+            {isProduction ? 'Hello World Production ! 🌐' : 'Hello World Mac ! 🍎'}
           </Button>
           
           {showHello && (
@@ -42,14 +47,14 @@ export const HomePage: React.FC = () => {
                 Hello World ! 🎉
               </div>
               <div className="text-gray-600">
-                Stack Mac opérationnelle ! ✨
+                {isProduction ? 'Hébergement gratuit opérationnel ! ✨' : 'Stack Mac opérationnelle ! ✨'}
               </div>
             </div>
           )}
           
           {clickCount > 0 && !showHello && (
             <div className="text-sm text-gray-500">
-              Tests Mac : {clickCount}
+              Tests {isProduction ? 'Production' : 'Mac'} : {clickCount}
             </div>
           )}
         </div>
@@ -58,11 +63,11 @@ export const HomePage: React.FC = () => {
           <div className="text-sm text-gray-600 space-y-2">
             <div className="flex justify-between">
               <span>Environnement:</span>
-              <span className="font-medium">Mac Air M2 Local</span>
+              <span className="font-medium">{environment}</span>
             </div>
             <div className="flex justify-between">
               <span>Port:</span>
-              <span className="font-medium">localhost:5173</span>
+              <span className="font-medium">{port}</span>
             </div>
             <div className="flex justify-between">
               <span>Status:</span>
